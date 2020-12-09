@@ -10,7 +10,6 @@ export const NotificationDrawer = () => {
   const [status, setStatus] = useState<string>('close')
   const [settingsStatus, setSettingsStatus] = useState<string>('close')
   const [currentPag, setCurrentPag] = useState<number>(1)
-  console.log('currentPag', currentPag)
 
   const time: string = new Date().toLocaleTimeString().split(':').slice(0, 2).join(':')
   const date: string = (new Date() as any).toGMTString().split(' ').slice(0, 3).join(' ')
@@ -22,7 +21,6 @@ export const NotificationDrawer = () => {
   const STATUS_HEIGHT: number = 28
   let LEFT_PAG_BOUND: number = 0
   let AMOUNT_OF_INDICATOR: number = 0
-  console.log('AMOUNT_OF_INDICATOR', AMOUNT_OF_INDICATOR)
 
   const [drawerProps, drawerSet] = useSpring(() => ({
     y: DRAWER_CLOSE,
@@ -60,7 +58,6 @@ export const NotificationDrawer = () => {
   const [tagsPaginate, setTagsPaginate] = useSpring(() => ({
     l: 24
   }))
-  console.log('tagPaginate', tagsPaginate.l.get())
 
   const [pagIndicatorProps, setPagIndicator] = useSprings(2, i => ({
     opacity: 0.5
@@ -174,18 +171,6 @@ export const NotificationDrawer = () => {
   let settingsTags1: ReactElement[] = []
   let settingsTags2: ReactElement[] = []
   let settingsTags3: ReactElement[] = []
-  console.log('settingsItems1', settingsItems1)
-  console.log('settingsItems2', settingsItems2)
-  console.log('settingsItems3', settingsItems3)
-  console.log('settingsItemsALL1', settingsItemsALL1)
-  console.log('settingsItemsALL2', settingsItemsALL2)
-  console.log('settingsItemsALL3', settingsItemsALL3)
-  console.log('settingsItemsALL1LEN', settingsItemsALL1.length)
-  console.log('settingsItemsALL2LEN', settingsItemsALL2.length)
-  console.log('settingsItemsALL3LEN', settingsItemsALL3.length)
-  console.log('settingsTags1', settingsTags1)
-  console.log('settingsTags2', settingsTags2)
-  console.log('settingsTags3', settingsTags3)
   let settingsNames: ReactElement[] = []
   settingsData.forEach(({ name, image }: Settings, i: number) => {
     const index = i + 1
@@ -239,7 +224,6 @@ export const NotificationDrawer = () => {
       -100 : 0
 
     AMOUNT_OF_INDICATOR = LEFT_PAG_BOUND === -150 ? 3 : LEFT_PAG_BOUND === -100 ? 2 : 1
-    console.log('AMOUNT_OF_INDICATOR', AMOUNT_OF_INDICATOR)
   })
 
   const settingsItems: ReactElement[] | JSX.Element = settingsItemsALL1.length + settingsItemsALL2.length + settingsItemsALL3.length > 7 ? (
@@ -270,7 +254,6 @@ export const NotificationDrawer = () => {
 
   const bindDrawer = useDrag(({ direction: [, dy], vxvy: [, vy], tap, last, movement: [, my], dragging }) => {
     // if my mx direction goes up turn off opacity of endprops
-    console.log('my', my)
     if (tap) return
     drawerSet({ y: my <= DRAWER_OPEN ? my : DRAWER_OPEN })
 
@@ -317,11 +300,9 @@ export const NotificationDrawer = () => {
   })
 
   const bindPaginate = useDrag(({ tap, last, movement: [mx] }) => {
-    console.log('l paginate: ', settingsPaginate.l.get())
     if (settingsStatus === 'close' || tap) return
 
     const requiredMargin = 13;
-    console.log('mx', mx)
     const gesture = mx < -100 ? -100 : mx
     setSettingsPaginate({ l: gesture + requiredMargin })
     setTagsPaginate({ l: gesture * 5 + 24 })
